@@ -9,9 +9,10 @@
     <label for="{{ $name }}"> {{ $label }} </label>
        
     <select name="{{ $name }}[]" id="{{ $name }}" multiple>
-        @foreach ($options as $key => $value)
+        @foreach ($options as $k => $v)
+        <option @selected($value->contains($k))  value="{{ $k }}">{{ $v }}</option>
         @endforeach
-        <option @selected($value->contains($key)) value="{{ $key }}">{{ $value }}</option>
+       
     </select>
      @error($name)
     <div class="invalid-feedback">

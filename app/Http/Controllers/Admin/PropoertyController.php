@@ -69,6 +69,7 @@ class PropoertyController extends Controller
      */
     public function edit(Property $property)
     {
+        
         return view('admin.property.formCreate', [
             'property' => $property,
             'options' => Option::pluck('name', 'id')
