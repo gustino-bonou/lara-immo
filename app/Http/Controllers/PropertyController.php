@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PropertyContactRequest;
 use App\Http\Requests\PropertySearchRequest;
+use App\Mail\PropertyContactMail;
 use App\Models\Property;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class PropertyController extends Controller
 {
@@ -45,5 +48,18 @@ class PropertyController extends Controller
         return view('property.show', [
             'property' => $property
         ]);
+    }
+
+    public function contact(Property $property, PropertyContactRequest $request){
+        /* Une fois qu'on est sur que les données sont valid, on envoie l'email, avec la methode 
+        send de la classe email. Cette methode prend un prametre de type maillaibe, ce
+        qui eyait crée qui prend lui meme le property et les information envoyes par le clien
+        Avec cette foncuion, le mail est envoyué automatiquement
+        Il y a aussi l'option de file d'attente que nous allons revoir*/
+
+        Mail::send(new PropertyContactMail($property, $request->validated()));
+
+        return back()->with('succes', 'Nous avons réçu votre contact envoyé, nous vous revenons toute suite');
+
     }
 }

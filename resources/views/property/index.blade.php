@@ -25,7 +25,7 @@
                 @include('property.card')
             </div>
             @empty
-            <div class="col">
+            <div class="col-3 mb-4">
                 Aucun bien ne correspon à votre recherche
             </div>
         @endforelse

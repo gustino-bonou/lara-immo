@@ -15,10 +15,10 @@
         </div>
 
         <hr>
-        <div class="mt-4">
+        <div class="mt-4 ">
             <h4>Intéressé par ce bien ?</h4>
 
-            <form action="" method="post" class="vstack gap-3">
+            <form action="{{ route('property.contact', $property) }}" method="post" class="vstack gap-3">
                 @csrf
 
                 <div class="row">
@@ -26,11 +26,13 @@
                         'name' => 'firstname',
                         'class' => 'col',
                         'label' => 'Prénom',
+                        'value' => 'Bonou'
                     ])
                     @include('shared.input', [
                         'name' => 'lastname',
                         'class' => 'col',
                         'label' => 'Nom',
+                        'value' => 'Augustin'
                     ])
                 </div>
 
@@ -39,11 +41,13 @@
                         'name' => 'phone',
                         'class' => 'col',
                         'label' => 'Téléphone',
+                        'value' => '+229 00 00 00 55'
                     ])
                     @include('shared.input', [
                         'name' => 'email',
                         'class' => 'col',
-                        'type' => 'email'
+                        'type' => 'email',
+                        'value' => 'august@gmail.com'
                     ])
                     
                 </div>
@@ -52,10 +56,11 @@
                         'class' => 'col',
                         'type' => 'textarea',
                         'label' => 'Votre message',
+                        'value' => 'Je veux payer ce bien'
                     ])
 
                 <div class="btn btn-primary">
-                    Nous contacter
+                   <button class="btn btn-primary"> Nous contacter</button>
                 </div>
             </form>
         </div>
