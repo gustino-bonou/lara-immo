@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\OptionController;
 use App\Http\Controllers\Admin\PropoertyController;
+use App\Http\Controllers\HomeController;
+use App\Models\Property;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,10 +16,14 @@ use App\Http\Controllers\Admin\PropoertyController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
+$idRegex = '[0-9]+';
+$slugRegex = '[0-9a-z\-]+';
+Route::get('/', [HomeController::class, 'index']);
+Route::get('/biens', [App\Http\Controllers\PropertyController::class, 'index'])->name('property.index');
+Route::get('/biens/{slug}-{property}', [App\Http\Controllers\PropertyController::class, 'show'])->name('property.show')->where([
+    'property' => $idRegex,
+    'slug' => $slugRegex
+]);
 
 Route::prefix('admin')->name('admin.')-> group(function(){
     Route::resource('property', PropoertyController::class )->except(['show']);
