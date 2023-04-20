@@ -1,5 +1,4 @@
 @php
-    $label ??= null;
     $type ??= 'text';
     $class ??= null;
     $name ??= '';

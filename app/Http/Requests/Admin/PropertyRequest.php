@@ -33,6 +33,8 @@ class PropertyRequest extends FormRequest
             'adresse' => ['required', 'min:8'],
             'sold' => ['required', 'boolean'],
             'postal_code' => ['required', 'min:3'],
+            //ici on accepte les options, tableau qui doit exister dans la tables options colonne id
+            'options' => ['array', 'exists:options,id', 'required']
         ];
     }
 }

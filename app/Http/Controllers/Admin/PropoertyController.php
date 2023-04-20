@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\PropertyRequest;
+use App\Models\Option;
 use App\Models\Property;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\PropertyRequest;
 
 class PropoertyController extends Controller
 {
@@ -36,7 +37,11 @@ class PropoertyController extends Controller
             'sold' => false,
         ]);
         return view('admin.property.formCreate',[
-            'property' => $property
+            'property' => $property,
+            //on envoie les options disponibles à la page de 
+            //formulaire pour création et édition de property
+            //la function pluck est utile pour cela, 
+            'options' => Option::pluck('name', 'id')
         ]);
     }
 
@@ -45,7 +50,15 @@ class PropoertyController extends Controller
      */
     public function store(PropertyRequest $request)
     {
+        
         $property = Property::create($request->validated());
+
+        //ici on prend par la relation options sur property afin de faire une synchronisation
+        //la fonction sync sur la relation permet cela en prenant un tableau d'option
+        //genre dans la table àption_property, on aura des colonnes
+        //ceProperty => toutes les otions choisies
+        $property->options()->sync($request->validated('options'));
+
 
         return to_route('admin.property.index')->with('success', 'Bien créé avec succès');
     }
@@ -57,7 +70,8 @@ class PropoertyController extends Controller
     public function edit(Property $property)
     {
         return view('admin.property.formCreate', [
-            'property' => $property
+            'property' => $property,
+            'options' => Option::pluck('name', 'id')
         ]);
     }
 
@@ -68,7 +82,12 @@ class PropoertyController extends Controller
 
     
     {
-       // dd($request->validated());
+        //ici on prend par la relation options sur property afin de faire une synchronisation
+        //la fonction sync sur la relation permet cela en prenant un tableau d'option
+        //genre dans la table àption_property, on aura des colonnes
+        //ceProperty => toutes les otions choisies
+        $property->options()->sync($request->validated('options'));
+
         $property->update($request->validated());
 
         return to_route('admin.property.index')->with('success', 'Bien modifié avec succès');

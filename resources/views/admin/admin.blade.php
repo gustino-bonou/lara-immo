@@ -32,7 +32,7 @@
         </li>
 
         {{-- @class(['nav-link text-white', 'action' => str_contains($route, 'option.')]) --}}
-      
+       
       
       
       
