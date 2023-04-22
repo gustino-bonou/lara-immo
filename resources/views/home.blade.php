@@ -17,7 +17,7 @@
 
             @foreach ($properties as $property)
                 <div class="col">
-                    @include('designProperty.card')
+                    @include('property.card')
                 </div>
             @endforeach
         </div>
